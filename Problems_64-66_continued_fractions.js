@@ -39,4 +39,35 @@ const continuedFractionFirstStep = (a,b,c,d) => {
 }
 
 
-console.log(continuedFractionFirstStep(0,1,1,23));
+// returns continued fraction expansion of sqrt(d);
+const continuedFractionSqrt = (d) =>{
+    return continuedFractionFirstStep(0,1,1,d);
+}
+
+
+// returns array of positive integers <= n that are non-square
+const nonSquares = (n) =>{
+    const nonSquaresList = [];
+    for (i = 1; i <= n; i++){
+        if (i ** 0.5 % 1 != 0){
+            nonSquaresList.push(i);
+        }
+    }
+    return nonSquaresList;
+}
+
+
+// returns number of continued fractions expansions <= n with odd period
+const problem64 = (n) => {
+    let oddPeriods = 0;
+    const nonSquaresList = nonSquares(n);
+    for (i of nonSquaresList){
+        const continuedFraction = continuedFractionSqrt(i);
+        if ((continuedFraction.length-1) % 2 != 0){
+            oddPeriods += 1;
+        }
+    }
+    return oddPeriods;
+}
+
+console.log(problem64(10000));
