@@ -71,3 +71,42 @@ const problem64 = (n) => {
 }
 
 console.log(problem64(10000));
+
+
+// Problem 65: convergents of e
+// e has continued fraction expansion [2;1,2,1,1,4,1,1,6,1,1,8,1,...,1,2k,1,...]
+// Find the sum of digits in the numerator of the 100th (in general nth) convergent of the 
+// continued fraction for e
+
+
+// gives the numerator and denominator of the nth convergent of the 
+// continued fraction continuedFraction
+const nthConvergent = (n, continuedFraction) => {
+    let period = [...continuedFraction];
+    period.shift();
+    while (continuedFraction.length < n){
+        continuedFraction = continuedFraction.concat(period);
+    }
+    const p0 = continuedFraction[0];
+    const q0 = 1;
+    const p1 = continuedFraction[0]*continuedFraction[1] + 1;
+    const q1 = continuedFraction[1];
+    if (n === 0){
+        return [p0,q0];
+    }
+    for (i=2; i<=n; i++){
+        let p = continuedFraction[i] * p1 + p0;
+        let q = continuedFraction[i] * q1 + q0;
+        [p0, p1] = [p1, p];
+        [q0, q1] = [q1,q];
+    }
+    return [p1, q1];
+}
+
+
+
+const nthConvergentSqrt = (n,d) => {
+    return nthConvergent(n, continuedFractionSqrt(d));
+}
+
+console.log(nthConvergent(9,continuedFractionSqrt(23)));
