@@ -117,6 +117,15 @@ const Problem65 = (n) => {
     return cont_frac;
 }
 
+const digitSum = (n) => {
+    let sum = 0;
+    const digitList = n.toString().split("");
+    for (i of digitList){
+        sum += parseInt(i);
+    }
+    return sum;
+}
+
 
 
 const nthConvergentSqrt = (n,d) => {
