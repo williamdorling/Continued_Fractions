@@ -141,4 +141,30 @@ const nthConvergentSqrt = (n,d) => {
     return nthConvergent(n, continuedFractionSqrt(d));
 }
 
-console.log(Problem65(100));
+console.log("Problem 65:", Problem65(100));
+
+
+
+// Problem 66: Diophantine equation
+
+// Consider quadratic Diophantine equations of the form:
+// x**2 – Dy**2 = 1
+// For example, when D=13, the minimal solution in x is 649**2 – 13×180**2 = 1.
+// It can be assumed that there are no solutions in positive integers when 
+// D is square.
+// Find the value of D ≤ 1000 (n) in minimal solutions of x for which the 
+// largest value of x is obtained.
+
+
+// returns the fundamental unit of sqrt(d)
+const fundamentalUnit = (d) =>{
+    const contFrac = continuedFractionSqrt(d);
+    const periodLength = contFrac.length - 1;
+    if (periodLength % 2 === 0){
+        return nthConvergent(periodLength - 1, contFrac);
+    }
+    else {
+        return nthConvergent(2*periodLength - 1, contFrac);
+    }
+}
+
