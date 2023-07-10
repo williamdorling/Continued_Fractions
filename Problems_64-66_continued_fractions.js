@@ -87,16 +87,16 @@ const nthConvergent = (n, continuedFraction) => {
     while (continuedFraction.length < n){
         continuedFraction = continuedFraction.concat(period);
     }
-    const p0 = continuedFraction[0];
-    const q0 = 1;
-    const p1 = continuedFraction[0]*continuedFraction[1] + 1;
-    const q1 = continuedFraction[1];
+    let p0 = BigInt(continuedFraction[0]);
+    let q0 = BigInt(1);
+    let p1 = BigInt(continuedFraction[0]*continuedFraction[1] + 1);
+    let q1 = BigInt(continuedFraction[1]);
     if (n === 0){
         return [p0,q0];
     }
-    for (i=2; i<=n; i++){
-        let p = continuedFraction[i] * p1 + p0;
-        let q = continuedFraction[i] * q1 + q0;
+    for (i=2; i<n; i++){
+        let p = BigInt(BigInt(continuedFraction[i]) * p1 + p0);
+        let q = BigInt(BigInt(continuedFraction[i]) * q1 + q0);
         [p0, p1] = [p1, p];
         [q0, q1] = [q1,q];
     }
@@ -114,10 +114,11 @@ const Problem65 = (n) => {
     else if(n%3 === 2){
         cont_frac.push(1, 1);
     }
-    return cont_frac;
+    const convergent = nthConvergent(n, cont_frac);
+    return digitSumBigInt(convergent[0]);
 }
 
-const digitSum = (n) => {
+const digitSumBigInt = (n) => {
     let sum = 0;
     const digitList = n.toString().split("");
     for (i of digitList){
@@ -126,10 +127,18 @@ const digitSum = (n) => {
     return sum;
 }
 
+const digitSum2 = (n) => {
+    let sum = 0;
+    while(n > 0){
+        sum += n % 10;
+        n = (n - n%10)/10;
+    }
+    return sum;
+}
 
 
 const nthConvergentSqrt = (n,d) => {
     return nthConvergent(n, continuedFractionSqrt(d));
 }
 
-console.log(Problem65(10));
+console.log(Problem65(100));
