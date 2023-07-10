@@ -70,7 +70,7 @@ const problem64 = (n) => {
     return oddPeriods;
 }
 
-console.log(problem64(10000));
+// console.log(problem64(10000));
 
 
 // Problem 65: convergents of e
@@ -103,10 +103,24 @@ const nthConvergent = (n, continuedFraction) => {
     return [p1, q1];
 }
 
+const Problem65 = (n) => {
+    let cont_frac = [2, 1, 2];
+    for (i = 2; i <= Math.floor(n/3); i++){
+        cont_frac.push(1, 1, 2*i);
+    }
+    if (n%3 === 1){
+        cont_frac.push(1);
+    }
+    else if(n%3 === 2){
+        cont_frac.push(1, 1);
+    }
+    return cont_frac;
+}
+
 
 
 const nthConvergentSqrt = (n,d) => {
     return nthConvergent(n, continuedFractionSqrt(d));
 }
 
-console.log(nthConvergent(9,continuedFractionSqrt(23)));
+console.log(Problem65(10));
