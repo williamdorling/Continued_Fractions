@@ -168,3 +168,16 @@ const fundamentalUnit = (d) =>{
     }
 }
 
+const Problem66 = (n) => {
+    let minSols = [0,0,0];
+    const nonSquaresList = nonSquares(n);
+    for (d of nonSquaresList){
+        let fundamentalOneUnit = fundamentalUnit(d);
+        if (fundamentalOneUnit[0] > minSols[1]){
+            minSols = [d, fundamentalOneUnit[0], fundamentalOneUnit[1]];
+        }
+    }
+    return minSols;
+}
+
+console.log("Problem 66:", Problem66(1000));
